@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户添加</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="date"], input[type="number"], input[type="email"] {
+            width: 95%;
+            padding: 8px;
+            margin: 6px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var form = document.querySelector('form');
+            form.onsubmit = function(event) {
+                var customerId = document.getElementById('customer_id').value;
+                if (!customerId) {
+                    alert('客户ID不能为空');
+                    event.preventDefault();
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+<h1>添加客户信息</h1>
+<div class="container">
+    <form action="../customer_add/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>客户ID</th>
+                <td><input type="text" id="customer_id" name="customer_id"></td>
+            </tr>
+            <tr>
+                <th>姓名</th>
+                <td><input type="text" id="customer_name" name="customer_name"/></td>
+            </tr>
+            <tr>
+                <th>证件照</th>
+                <td>
+                    <input type="file" id="photo_upload" name="photo_upload" style="display:none;">
+                    <button type="button" onclick="document.getElementById('photo_upload').click();">上传证件照</button>
+                </td>
+            </tr>
+            <tr>
+                <th>性别</th>
+                <td><input type="text" id="customer_gender" name="customer_gender"/></td>
+            </tr>
+            <tr>
+                <th>出生日期</th>
+                <td><input type="date" id="birth_date" name="birth_date"/></td>
+            </tr>
+            <tr>
+                <th>职业</th>
+                <td><input type="text" id="occupation" name="occupation"/></td>
+            </tr>
+            <tr>
+                <th>地址</th>
+                <td><input type="text" id="contact_address" name="contact_address"/></td>
+            </tr>
+            <tr>
+                <th>电话</th>
+                <td><input type="text" id="contact_phone" name="contact_phone"/></td>
+            </tr>
+            <tr>
+                <th>邮箱</th>
+                <td><input type="email" id="contact_email" name="contact_email"/></td>
+            </tr>
+            <tr>
+                <th>客户级别</th>
+                <td><input type="text" id="customer_level" name="customer_level"/></td>
+            </tr>
+        </table>
+        <div class="submit-container">
+            <input type="submit" value="提交"/>
+            <button type="button" onclick="window.location.href='../'">返回</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

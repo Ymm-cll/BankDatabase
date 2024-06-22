@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>银行管理</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navigation {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navigation a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navigation a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .navigation .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .content {
+            padding: 20px;
+        }
+        .add-button, .export-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .add-button:hover, .export-button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .query-button {
+            background-color: transparent;
+            border: none;
+            color: #4CAF50;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+        }
+        .query-button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <a href="/bank/bank" class="nav-button active">银行管理</a>
+        <a href="/bank/customer" class="nav-button">客户管理</a>
+        <a href="/bank/account" class="nav-button">账户管理</a>
+        <a href="/bank/loan" class="nav-button">贷款管理</a>
+        <a href="/bank/department" class="nav-button">银行部门管理</a>
+        <a href="/bank/employee" class="nav-button">员工管理</a>
+    </div>
+    <div class="content">
+        <a href="/bank/bank/bank_add" class="add-button">添加银行</a>
+        <a href="/bank/others/bank_dump" class="export-button">导出表格</a>
+        <form method="GET" action="/bank/bank/bank_search">
+            <table>
+                <tr>
+                    <th>银行ID</th>
+                    <th>名称</th>
+                    <th>地址</th>
+                    <th>成立日期</th>
+                    <th>营业状态</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>服务类型</th>
+                    <th>操作</th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="bank_id"></td>
+                    <td><input type="text" name="bank_name"></td>
+                    <td><input type="text" name="bank_address"></td>
+                    <td><input type="text" name="established_date"></td>
+                    <td><input type="text" name="operational_status"></td>
+                    <td><input type="text" name="contact_phone"></td>
+                    <td><input type="text" name="contact_email"></td>
+                    <td><input type="text" name="service_type"></td>
+                    <td><button type="submit" class="query-button">查询</button></td>
+                </tr>
+                {% for bank in banks %}
+                    <tr>
+                        <td>{{ bank.bank_id }}</td>
+                        <td>{{ bank.bank_name }}</td>
+                        <td>{{ bank.bank_address }}</td>
+                        <td>{{ bank.established_date|date:"Y-m-d" }}</td>
+                        <td>{{ bank.operational_status }}</td>
+                        <td>{{ bank.contact_phone }}</td>
+                        <td>{{ bank.contact_email }}</td>
+                        <td>{{ bank.service_type }}</td>
+                        <td>
+                            <a href="/bank/bank/bank_edit/?bank_id={{ bank.bank_id }}">编辑</a> |
+                            <a href="/bank/bank/bank_delete/?bank_id={{ bank.bank_id }}">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+</body>
+</html>

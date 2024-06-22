@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑贷款</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="date"], input[type="email"] {
+            width: 95%;
+            padding: 8px;
+            margin: 6px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px; /* 添加间隔 */
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>编辑贷款信息</h1>
+<div style="display: flex; justify-content: center; width: 100%;">
+    <form action="../loan_edit/?loan_id={{ loan.loan_id }}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <td><input type="text" id="loan_id" name="loan_id" value="{{ loan.loan_id }}" readonly
+                           style="background-color: #d3d3d3; pointer-events: none;"></td>
+            </tr>
+            <tr>
+                <th>账户</th>
+                <td><input type="text" id="account_id" name="account_id" value="{{ loan.account_id }}"></td>
+            </tr>
+            <tr>
+                <th>金额</th>
+                <td><input type="number" id="loan_amount" name="loan_amount" value="{{ loan.loan_amount }}"></td>
+            </tr>
+            <tr>
+                <th>发放日期</th>
+                <td><input type="date" id="disbursement_date" name="disbursement_date"
+                           value="{{ loan.disbursement_date|date:"Y-m-d" }}"></td>
+            </tr>
+            <tr>
+                <th>到期日期</th>
+                <td><input type="date" id="due_date" name="due_date"
+                           value="{{ loan.due_date|date:"Y-m-d" }}"></td>
+            </tr>
+            <tr>
+                <th>利率</th>
+                <td><input type="number" id="loan_rate" name="loan_rate"
+                           value="{{ loan.loan_rate }}"></td>
+            </tr>
+            <tr>
+                <th>状态</th>
+                <td><input type="text" id="loan_status" name="loan_status" value="{{ loan.loan_status }}">
+                </td>
+            </tr>
+            <tr>
+                <th>剩余还款金额</th>
+                <td><input type="number" id="remaining_amount" name="remaining_amount" value="{{ loan.remaining_amount }}">
+                </td>
+            </tr>
+        </table>
+        <div class="submit-container">
+            <input type="submit" value="提交">
+            <button type="button" onclick="window.location.href='../'">返回</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
